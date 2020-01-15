@@ -55,7 +55,14 @@ def serialize(order):
 #         return JsonResponse(data, safe=False)
 
 @csrf_exempt
+@csrf_exempt
 def get_api(request, pk=None):
+    if request.method == "GET":
+        orders = Order.objects.all()
+        data=[serialize(order) for order in orders]
+            
+        return JsonResponse(data, safe=False)
+
     if request.method == "PUT":
         q=QueryDict(request)
         print(q.values())
